@@ -1,0 +1,51 @@
+{
+  "name": "challenge_1",
+  "version": "1.0.0",
+  "description": "",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "eslintConfig": {
+    "rules": {
+      "no-unused-vars": "off"
+    },
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "jserver": "json-server --watch ./data/db.json",
+    "start": "nodemon server/server.js",
+    "build": "webpack --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-react": "^7.13.13",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "bluebird": "^3.7.2",
+    "json-server": "^0.16.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  }
+}
