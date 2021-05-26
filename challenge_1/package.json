@@ -8,18 +8,6 @@
       "@babel/preset-react"
     ]
   },
-  "eslintConfig": {
-    "rules": {
-      "no-unused-vars": "off"
-    },
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    }
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "jserver": "json-server --watch ./data/db.json",
@@ -44,8 +32,10 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "jquery": "^3.6.0",
     "morgan": "^1.10.0"
   }
 }
