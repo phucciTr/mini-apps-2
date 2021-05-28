@@ -16,9 +16,9 @@ db.listen(dbPort, () => {
 });
 
 
-const search =  async (searchString) => {
+const search =  async (searchString, page) => {
   try {
-    let query = `${dbUrl}?q=${searchString}&_page=2&_limit=10`;
+    let query = `${dbUrl}?q=${searchString}&_page=${page}&_limit=10`;
     let response = await axios.get(query);
     return Promise.resolve(response.data);
   }

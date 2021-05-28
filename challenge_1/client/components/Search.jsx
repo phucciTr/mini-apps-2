@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 
-const Search = () => {
-  const [search, setSearch] = useState('');
+const Search = ({ search }) => {
+  const [searchString, setSearch] = useState('');
 
   const submitSearch = (e) => {
     e.preventDefault();
-    console.log('hi');
+    search(searchString);
   };
 
   return (
@@ -14,7 +14,7 @@ const Search = () => {
       <h2>Search</h2>
       <form onSubmit={(e) => submitSearch(e)} >
         <label>
-          <input type="text" name="search" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <input type="text" name="search" value={searchString} onChange={(e) => setSearch(e.target.value)} />
         </label>
 
         <input type="submit" value="search"/>

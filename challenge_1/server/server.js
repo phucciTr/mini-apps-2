@@ -17,8 +17,7 @@ app.use(jServerMidware);
 
 app.get('/search', async (req, res) => {
   console.log('req.query = ', req.query);
-  let data = await db.search(req.query.search);
-  console.log('data = ', data);
+  let data = await db.search(req.query.search, req.query.page);
   res.send(data);
 });
 
