@@ -2,7 +2,7 @@ import React from 'react';
 import Event from './Event.jsx';
 
 
-const Events = ({events}) => (
+const Events = ({ events }) => (
   <div>
     <table>
       {events.map((eventData, i) =>
