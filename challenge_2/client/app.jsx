@@ -45,10 +45,17 @@ class App extends React.Component {
   render() {
     let charts = this.state.charts;
     let current = this.state.currentChart;
+    let data = this.state.data;
+
+    let start = data[0];
+    let end = data[data.length - 1];
+
+    if (start) { start = start[0]; }
+    if (end) { end = end[0]; }
 
     return (
       <div>
-        <h1>{`BPT Chart`}</h1>
+        <h1>{`BPT Chart From ${start} To ${end}`}</h1>
         <NextChart next={this.getNextChart} />
         <BitcoinChart dataSet={this.state.data} chartType={charts[current]} />
       </div>

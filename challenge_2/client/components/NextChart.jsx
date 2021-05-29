@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import initChart from './../lib/chart.js';
+import React from 'react';
 
 const NextChart = ({ next }) => {
 
@@ -8,7 +7,7 @@ const NextChart = ({ next }) => {
       <h2>Show Next Chart</h2>
       <form onSubmit={(e) => next(e)} >
 
-        <input type="submit" value="next"/>
+        <input type="submit" value="Next"/>
       </form>
     </div>
   );
