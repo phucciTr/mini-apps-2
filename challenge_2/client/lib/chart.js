@@ -5,7 +5,7 @@ const initChart = (label, data, backgroundColors, borderColors) => {
   let ctx = $('#myChart');
 
   let myChart = new Chart(ctx, {
-    type: 'line',
+    type: 'polarArea',
     data: {
         labels: label,
         datasets: [{
