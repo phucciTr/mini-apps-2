@@ -1,11 +1,11 @@
 import $ from 'jquery';
 import Chart from 'chart.js';
 
-const initChart = (label, data, backgroundColors, borderColors) => {
+const initChart = (label, data, backgroundColors, borderColors, chartType) => {
   let ctx = $('#myChart');
 
   let myChart = new Chart(ctx, {
-    type: 'polarArea',
+    type: chartType,
     data: {
         labels: label,
         datasets: [{

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import initChart from './../lib/chart.js';
 import randomColor from 'randomcolor';
 
-const BitcoinChart = ({ dataSet }) => {
+const BitcoinChart = ({ dataSet, chartType }) => {
+
 
   const createDataSet = () => {
     let label = [];
@@ -32,13 +33,13 @@ const BitcoinChart = ({ dataSet }) => {
 
   const displayChart = () => {
     let [label, data, backgroundColors, borderColors] = createDataSet();
-    initChart(label, data, backgroundColors, borderColors);
+    initChart(label, data, backgroundColors, borderColors, chartType);
   }
 
   displayChart();
 
   return (
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <canvas id="myChart" width="400" height="200"></canvas>
   );
 
 };
