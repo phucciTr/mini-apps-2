@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./data/server.js",
+    "start": "json-server --watch ./data/db.json",
     "build": "webpack --watch"
   },
   "keywords": [],
