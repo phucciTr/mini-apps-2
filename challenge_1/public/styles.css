@@ -15,3 +15,7 @@ table {
 td {
   padding: 10px 0;
 }
+
+.active {
+  border-style: solid;
+}
