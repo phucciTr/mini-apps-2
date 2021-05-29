@@ -55,7 +55,8 @@ class App extends React.Component {
 
     return (
       <div>
-        <h1>{`BPT Chart From ${start} To ${end}`}</h1>
+        <h1>{`BPT Chart For Every 2 Weeks`}</h1>
+        <h1>{`From ${start} To ${end}`}</h1>
         <NextChart next={this.getNextChart} />
         <BitcoinChart dataSet={this.state.data} chartType={charts[current]} />
       </div>
