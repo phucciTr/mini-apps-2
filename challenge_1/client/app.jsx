@@ -42,7 +42,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello</h1>
+        <h1>Historical Events Finder</h1>
         <Search search={this.handleSearch}/>
         <Paginate handlePageClick={this.handlePageClick} />
         <Events events={this.state.data} />

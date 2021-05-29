@@ -1,11 +1,13 @@
 import $ from 'jquery';
+const dbUri = '/events'
 
 const request = {
   search: (searchString, currentPage, successCb) => {
+    let query = `${dbUri}?q=${searchString}&_page=${currentPage}&_limit=10`;
+
     $.ajax({
-      url: '/search',
+      url: query,
       type: 'GET',
-      data: { search: searchString, page: currentPage },
       success: successCb,
       error: () => console.log('error searching')
     });

@@ -3,22 +3,19 @@ const cors = require('cors');
 const path = require('path');
 const jsonServer = require('json-server');
 const jServerMidware = jsonServer.defaults();
+const jsonRouter = jsonServer.router(path.join(__dirname, 'db.json'));
 
-const app = express();
+const app = jsonServer.create();
 const port = 3001;
-const db = require('./../data/index');
 
 app.use(express.static(path.join(__dirname, '/../public')));
 app.use(cors());
 
+app.use(jsonRouter);
 app.use(jsonServer.bodyParser);
 app.use(jServerMidware);
 
 
-app.get('/search', async (req, res) => {
-  let data = await db.search(req.query.search, req.query.page);
-  res.send(data);
-});
 
 const server = app.listen(port, function () {
   console.log(`listenting on port:${port}`);
