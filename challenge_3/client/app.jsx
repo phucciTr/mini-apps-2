@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PinsPad from './components/PinsPad.jsx';
+import ScoreBoard from './components/ScoreBoard.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class App extends React.Component {
         {this.state.frame < 10 && <h2>{`Frame ${this.state.frame} Delivery ${this.state.delivery}`}</h2>}
         {this.state.frame < 10 && <h4>Choose Number Of Pins Rolled</h4> }
         {this.state.frame < 10 && <PinsPad handleClick={this.rollPins} /> }
+        <ScoreBoard frame={this.state.frame} />
 
       </div>
     );
