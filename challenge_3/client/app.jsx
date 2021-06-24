@@ -15,7 +15,6 @@ class App extends React.Component {
     }
 
     this.rollPins = this.rollPins.bind(this);
-    this.isStrike = this.isStrike.bind(this);
   }
 
   componentDidMount() {
@@ -35,14 +34,8 @@ class App extends React.Component {
     let frame = this.state.frame;
     let pins = this.state.pins;
 
-
-    if (delivery === 0) {
-      pins[frame].first = rolledPins;
-    }
-
-    if (delivery === 1) {
-      pins[frame].second = rolledPins;
-    }
+    if (delivery === 0) { pins[frame].first = rolledPins; }
+    if (delivery === 1) { pins[frame].second = rolledPins; }
 
     this.countTotalPins(pins);
     this.setState({ pins: pins });
@@ -75,6 +68,10 @@ class App extends React.Component {
 
   }
 
+  isSpare(frame, pins) {
+    return pins[frame].first + pins[frame].second === 10 && pins[frame].second !== 0;
+  }
+
   countTotalPins(pins) {
     let delivery = this.state.delivery;
     let frame = this.state.frame;
@@ -101,6 +98,12 @@ class App extends React.Component {
 
         prevFrame--;
       }
+    }
+
+    let prevFrame = frame - 1;
+
+    if (prevFrame >= 0 && delivery === 0 && this.isSpare(prevFrame, pins)) {
+      pins[prevFrame].total += pins[frame].first;
     }
 
     if (frame > 0) {
