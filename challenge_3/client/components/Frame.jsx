@@ -4,16 +4,9 @@ import Delivery from './Delivery.jsx';
 
 const Frame = ({ row, col, frame, pins }) => {
 
-  const calculatePoints = () => {
-    if (pins[col] && pins[col].length > 1) {
-      let delivery1 = pins[col][0];
-      let delivery2 = pins[col][1];
-      return delivery1 + delivery2;
-    }
-  };
-
-  let framePoints = calculatePoints();
-  framePoints = framePoints ? framePoints : 'total';
+  let framePoints = pins[col] && pins[col].total !== 0
+    ? pins[col].total
+    : 'total';
 
   return (
     <td>

@@ -3,7 +3,7 @@ import _ from 'lodash';
 import Frame from './Frame.jsx';
 
 
-const ScoreBoard = ({ frame, pins }) => (
+const ScoreBoard = ({ frame, pins, isStrike }) => (
   <div>
     <h2>Score Board</h2>
 
