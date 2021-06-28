@@ -118,19 +118,9 @@ class App extends React.Component {
     let strikeCounts = this.state.strikeCounts;
 
     if (onStrike) {
-      if (frame === 9) {
-        let currentTotal = pins[frame].first + pins[frame].second;
-        pins[prevFrame].total += 10 + currentTotal;
-
-        if (pins[prevFrame].total - pins[prevFrame - 1].total > 30) {
-          pins[prevFrame].total -= 10;
-        }
-
-        return pins[frame].total += pins[prevFrame].total + currentTotal;
-      }
-
       let currentTotal = pins[frame].first + pins[frame].second;
       pins[prevFrame].total += 10 + currentTotal;
+      if (frame === 9 && pins[prevFrame].total - pins[prevFrame - 1].total > 30) { pins[prevFrame].total -= 10; }
       return pins[frame].total += pins[prevFrame].total + currentTotal;
     }
 
@@ -246,32 +236,32 @@ class App extends React.Component {
 
 
     if (frame === 0) {
-      pins[frame].total = delivery < 1
+      return pins[frame].total = delivery < 1
         ? pins[frame].first
         : pins[frame].total + pins[frame].second;
     }
 
     // handle non strike
     if (frame > 0 && strikeCounts === 0 && !this.isSpare(prevFrame, pins)) {
-      this.countRegular();
+      return this.countRegular();
     }
 
     // handle double
     if (strikeCounts === 2 && !this.isStrike() && delivery === 1) {
       this.countDouble();
-      this.setState({ strikeCounts: 0, isOnStrike: false })
+      return this.setState({ strikeCounts: 0, isOnStrike: false })
     }
 
     // handle triple
     if (strikeCounts === 3 && !this.isStrike() && delivery === 1) {
       this.countTriple();
-      this.setState({ strikeCounts: 0, isOnStrike: false })
+      return this.setState({ strikeCounts: 0, isOnStrike: false })
     }
 
     // handle onstrikes
     if (strikeCounts > 3 && !this.isStrike() && delivery === 1) {
       this.countOnStrikes();
-      this.setState({ strikeCounts: 0, isOnStrike: false });
+      return this.setState({ strikeCounts: 0, isOnStrike: false });
     }
 
 
@@ -301,13 +291,13 @@ class App extends React.Component {
       this.countStrike();
 
       if (delivery === 1) {
-        this.setState({ strikeCounts: 0 });
+        return this.setState({ strikeCounts: 0 });
       }
     }
 
     // handle spare
     if (prevFrame >= 0 && this.isSpare(prevFrame, pins)) {
-      this.countSpare();
+      return this.countSpare();
     }
 
   }
