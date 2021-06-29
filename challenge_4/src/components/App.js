@@ -1,7 +1,4 @@
-/* eslint-disable no-unused-vars */
 // import './../styles/App.css';
-import _ from 'lodash';
-// import Board from './Board';
 
 import BoardContainer from './../containers/BoardContainer.js';
 
