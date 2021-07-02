@@ -4,12 +4,12 @@ import Row from './Row';
 
 var Board = ({ board }) => {
 
-  console.log('board = ', board);
+  // console.log('board = ', board);
 
   return (
     <tbody>
       {_.range(10).map((row) =>
-        <Row />
+        <Row row={row} />
       )}
     </tbody>
   )
