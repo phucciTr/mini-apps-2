@@ -51,40 +51,48 @@ const mine = {
     }
   },
 
-  openTops: (row, col, board) => {
+  openBottoms: (row, col, board) => {
     let isAdj = false;
 
       for (let j = row; j < board.length; j++) {
         for (let c = col; c < board.length; c++) {
           mine.openSquare(j, c, board);
-          if (mine.isAdjacent(j, c, board)) { isAdj = true; }
-          break;
+          if (mine.isAdjacent(j + 1, c, board)) {
+            isAdj = true;
+            break;
+          }
         }
 
-        for (let c = col; c >= 0; c--) {
+        for (let c = col; c > -1; c--) {
           mine.openSquare(j, c, board);
-          if (mine.isAdjacent(j, c, board)) { isAdj = true; }
-          break;
+          if (mine.isAdjacent(j + 1, c, board)) {
+            isAdj = true;
+            break;
+          }
         }
 
         if (isAdj) { break; }
       }
   },
 
-  openBottoms: (row, col, board) => {
+  openTops: (row, col, board) => {
     let isAdj = false;
 
     for (let j = row; j > -1; j--) {
-      for (let c = col; c < board.length - 1; c++) {
+      for (let c = col; c < board.length; c++) {
         mine.openSquare(j, c, board);
-        if (mine.isAdjacent(j, c, board)) { isAdj = true; }
-        break;
+        if (mine.isAdjacent(j - 1, c, board)) {
+          isAdj = true;
+          break;
+        }
       }
 
-      for (let c = col; c >= 0; c--) {
+      for (let c = col; c > -1; c--) {
         mine.openSquare(j, c, board);
-        if (mine.isAdjacent(j, c, board)) { isAdj = true; }
-        break;
+        if (mine.isAdjacent(j - 1, c, board)) {
+          isAdj = true;
+          break;
+        }
       }
 
       if (isAdj) { break; }
@@ -98,8 +106,17 @@ const mine = {
         let adjRow = row + current[0];
         let adjCol = col + current[1];
 
-        mine.openTops(adjRow, adjCol, board);
         mine.openBottoms(adjRow, adjCol, board);
+        mine.openBottoms(adjRow + 1, adjCol, board);
+        mine.openBottoms(adjRow - 1, adjCol, board);
+        mine.openBottoms(adjRow, adjCol + 1, board);
+        mine.openBottoms(adjRow, adjCol - 1, board);
+
+        mine.openTops(adjRow, adjCol, board);
+        mine.openTops(adjRow + 1, adjCol, board);
+        mine.openTops(adjRow - 1, adjCol, board);
+        mine.openTops(adjRow, adjCol + 1, board);
+        mine.openTops(adjRow, adjCol - 1, board);
       });
     }
 
