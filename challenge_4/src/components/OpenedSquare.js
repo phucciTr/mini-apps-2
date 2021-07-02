@@ -9,7 +9,7 @@ var OpenedSquare = ({ open, board, row, col, handleClick }) => {
 
   return (
     <td>
-      {isMine && 'x'}
+      {isMine && <img id='bomb' alt='x' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRa3p3cGbWigVoc-XLzD5l1iexw3okeltitZFNGkWWYxYboCQtpqRVXViyoxyn6BkTMQ4&usqp=CAU'/> }
       {!isMine && mineCounts > 0 && mineCounts}
       {!isMine && mineCounts <= 0 && <div className="blank"></div> }
     </td>
