@@ -67,7 +67,7 @@ const mine = {
           break;
         }
 
-        if (isAdj) { j = board.length}
+        if (isAdj) { break; }
       }
   },
 
