@@ -3,9 +3,11 @@ var ClosedSquare = ({ board, row, col, handleClick }) => {
   ? board[row][col]
   : { mine: false, open: false };
 
-  return square.mine
-    ? <td> x </td>
-    : <td onClick={(e) => handleClick(row, col, board)}></td>;
+  return <td onClick={(e) => handleClick(row, col, board)}></td>;
+
+  // return square.mine
+  //   ? <td onClick={(e) => handleClick(row, col, board)}> x </td>
+  //   : <td onClick={(e) => handleClick(row, col, board)}></td>;
 }
 
 export default ClosedSquare;

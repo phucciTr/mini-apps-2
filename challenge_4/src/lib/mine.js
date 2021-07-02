@@ -30,6 +30,8 @@ const mine = {
       _.range(10).map((col) => generateSquare(row)));
   },
 
+  isOver: false,
+
   traverseAdjCoords: (cb) => {
     let coordinates = [
       [-1, -1], [-1, 0],
@@ -43,7 +45,25 @@ const mine = {
     });
   },
 
+  endGame: (board) => {
+    mine.isOver = true;
+
+    board.forEach((row, r) =>
+      row.forEach((col, c) =>
+        board[r][c].mine
+          ? board[r][c].open = true
+          : null));
+  },
+
   openSquare: (row, col, board) => {
+    if (board[row] && board[row][col]) {
+      board[row][col].open = true;
+      if (board[row][col].mine) { return mine.endGame(board); }
+      board[row][col].mineCounts = mine.countAdjMines(row, col, board);
+    }
+  },
+
+  revealSquare: (row, col, board) => {
     if (board[row] && board[row][col]) {
       if (board[row][col].mine) { return; }
       board[row][col].open = true;
@@ -53,10 +73,11 @@ const mine = {
 
   openBottoms: (row, col, board) => {
     let isAdj = false;
+    let visitedLastRow = false;
 
       for (let j = row; j < board.length; j++) {
         for (let c = col; c < board.length; c++) {
-          mine.openSquare(j, c, board);
+          mine.revealSquare(j, c, board);
           if (mine.isAdjacent(j + 1, c, board)) {
             isAdj = true;
             break;
@@ -64,23 +85,25 @@ const mine = {
         }
 
         for (let c = col; c > -1; c--) {
-          mine.openSquare(j, c, board);
+          mine.revealSquare(j, c, board);
           if (mine.isAdjacent(j + 1, c, board)) {
             isAdj = true;
             break;
           }
         }
 
-        if (isAdj) { break; }
+        if (visitedLastRow) { return; }
+        if (isAdj) { visitedLastRow = true; }
       }
   },
 
   openTops: (row, col, board) => {
     let isAdj = false;
+    let visitedLastRow = false;
 
     for (let j = row; j > -1; j--) {
       for (let c = col; c < board.length; c++) {
-        mine.openSquare(j, c, board);
+        mine.revealSquare(j, c, board);
         if (mine.isAdjacent(j - 1, c, board)) {
           isAdj = true;
           break;
@@ -88,20 +111,21 @@ const mine = {
       }
 
       for (let c = col; c > -1; c--) {
-        mine.openSquare(j, c, board);
+        mine.revealSquare(j, c, board);
         if (mine.isAdjacent(j - 1, c, board)) {
           isAdj = true;
           break;
         }
       }
 
-      if (isAdj) { break; }
+      if (visitedLastRow) { return; }
+      if (isAdj) { visitedLastRow = true; }
 
     }
   },
 
   openAdjSquares: (row, col, board) => {
-    if (board[row][col].mineCounts === 0) {
+    if (!board[row][col].mine && board[row][col].mineCounts === 0) {
       return mine.traverseAdjCoords((current) => {
         let adjRow = row + current[0];
         let adjCol = col + current[1];
