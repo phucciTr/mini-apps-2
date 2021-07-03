@@ -1,4 +1,4 @@
-var OpenedSquare = ({ open, board, row, col, handleClick }) => {
+var OpenedSquare = ({ board, row, col }) => {
   let mineCounts = 0;
   let isMine = false;
 

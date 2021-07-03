@@ -1,19 +1,21 @@
 import _ from 'lodash';
+import changeStatus from './../actions/status.js';
+import store from './../store/store.js';
 
-
+let totalMines = 10;
 let mineCounts = 0;
 
 const generateSquare = (row) => {
-  let square = { mine: false, open: false, adjMines: 0, mineCounts: 0 };
+  let square = { mine: false, open: false, flag: false, mineCounts: 0 };
 
-  if (row === 7 && mineCounts < 10) {
-    square.mine = Math.random() < 0.5 ? true : false;
+  if (row === 7 && mineCounts < totalMines) {
+    square.mine = Math.random() < 0.07 * totalMines ? true : false;
     if (square.mine) { mineCounts++; }
     return square;
   }
 
-  if (mineCounts < 10) {
-    square.mine = Math.random() < 0.1 ? true : false;
+  if (mineCounts < totalMines) {
+    square.mine = Math.random() < 0.01 * totalMines ? true : false;
     if (square.mine) { mineCounts++; }
     return square;
   }
@@ -21,15 +23,16 @@ const generateSquare = (row) => {
   return square;
 }
 
-
-
 const mine = {
   init: () => {
     mineCounts = 0;
+
     let board = _.range(10).map((row) =>
       _.range(10).map((col) => generateSquare(row)));
 
+
     mine.squareToOpens = 100 - mineCounts;
+    console.log('mineCounts = ', mineCounts);
     console.log('mine.squareToOpens = ', mine.squareToOpens);
     return board;
   },
@@ -67,10 +70,17 @@ const mine = {
     }
   },
 
+  toggleFlag: (row, col, board) => {
+    if (board[row] && board[row][col]) {
+      board[row][col].flag = !board[row][col].flag ? true : false;
+    }
+  },
+
   revealSquare: (row, col, board) => {
     if (board[row] && board[row][col]) {
       if (board[row][col].mine) { return; }
       board[row][col].open = true;
+      mine.squareToOpens--;
       return board[row][col].mineCounts = mine.countAdjMines(row, col, board);
     }
   },
@@ -81,6 +91,11 @@ const mine = {
       if (board[row][col].open) { return; }
 
       mine.revealSquare(row, col, board);
+
+      if (mine.squareToOpens === 0) {
+        store.dispatch(changeStatus(true));
+        return mine.isOver = true;
+      }
 
       if (board[row][col].mine) { return; }
       if (board[row][col].mineCounts > 0) { return; }

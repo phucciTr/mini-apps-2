@@ -1,7 +1,7 @@
 import ClosedSquare from './ClosedSquare.js';
 import OpenedSquare from './OpenedSquare.js';
 
-var Square = ({ board, row, col, handleClick }) => {
+var Square = ({ board, row, col, handleClick, handleFlag }) => {
 
   let square = board[row]
     ? board[row][col]
@@ -9,8 +9,8 @@ var Square = ({ board, row, col, handleClick }) => {
 
 
   return square.open
-    ? <OpenedSquare board={board} open={true} row={row} col={col} handleClick={handleClick} />
-    : <ClosedSquare board={board} row={row} col={col} handleClick={handleClick} />
+    ? <OpenedSquare board={board} row={row} col={col}  />
+    : <ClosedSquare board={board} row={row} col={col} handleClick={handleClick} handleFlag={handleFlag} />
 
   // return square.mine
   //   ? <td onClick={(e) => handleClick(row, col, board)}> x </td>

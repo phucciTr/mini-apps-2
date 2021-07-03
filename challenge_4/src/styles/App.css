@@ -1,11 +1,10 @@
 td {
   position: relative;
-  border: 1px solid black;
   height: 50px;
   width: 50px;
   cursor: pointer;
   text-align: center;
-  background-color: gray;
+  background-color: rgb(121, 121, 121);
 
 
 }
@@ -13,11 +12,22 @@ td {
 .blank {
   height: 50px;
   width: 50px;
-  background-color:lightgray
+  border-top: 	3px solid white;
+	border-left: 	3px solid white;
+  border-right: 	3px solid #707070;
+	border-bottom: 	3px solid #707070;
+
+  background-color:rgb(73, 73, 73);
 
 }
 
 #bomb {
+  height: 50px;
+  width: 50px;
+  position: relative;
+}
+
+.flag {
   height: 50px;
   width: 50px;
   position: relative;

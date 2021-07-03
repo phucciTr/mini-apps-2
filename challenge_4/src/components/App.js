@@ -1,14 +1,16 @@
 import './../styles/App.css';
+import Board from './Board.js';
 
-import BoardContainer from './../containers/BoardContainer.js';
+function App({ winStatus }) {
+  console.log('winStatus = ', winStatus);
 
-function App() {
   return (
     <div className="App">
       <h1>Mines Sweeper</h1>
+      {winStatus && <h1>You Won The Game</h1>}
 
       <table>
-        <BoardContainer />
+        <Board />
       </table>
     </div>
   );

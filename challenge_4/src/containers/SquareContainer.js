@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Square from './../components/Square.js';
-import handleSquareClick from './../actions/square.js';
+import { handleSquareClick, handleRightClick } from './../actions/square.js';
+
 
 var mapStateToProps = (state) => ({
   board: state.board
@@ -9,6 +10,9 @@ var mapStateToProps = (state) => ({
 var mapDispatchToProps = (dispatch) => ({
   handleClick: (row, col, board) => {
     dispatch(handleSquareClick(row, col, board));
+  },
+  handleFlag: (row, col, board) => {
+    dispatch(handleRightClick(row, col, board));
   }
 });
 

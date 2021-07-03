@@ -13,4 +13,15 @@ var handleSquareClick = (row, col, board) => {
 
 };
 
-export default handleSquareClick;
+var handleRightClick = (row, col, board) => {
+  return (dispatch) => {
+    if (!mine.isOver) {
+      console.log('flag at ', row, col);
+      mine.toggleFlag(row, col, board);
+      dispatch(updateBoard([...board]));
+    }
+  };
+};
+
+export { handleSquareClick, handleRightClick }
+// export default handleSquareClick;
