@@ -5,14 +5,16 @@ td {
   width: 50px;
   cursor: pointer;
   text-align: center;
-  background-color:lightgray
+  background-color: gray;
+
 
 }
 
 .blank {
   height: 50px;
   width: 50px;
-  background-color: gray;
+  background-color:lightgray
+
 }
 
 #bomb {

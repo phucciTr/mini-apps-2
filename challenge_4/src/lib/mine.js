@@ -26,10 +26,15 @@ const generateSquare = (row) => {
 const mine = {
   init: () => {
     mineCounts = 0;
-    return _.range(10).map((row) =>
+    let board = _.range(10).map((row) =>
       _.range(10).map((col) => generateSquare(row)));
+
+    mine.squareToOpens = 100 - mineCounts;
+    console.log('mine.squareToOpens = ', mine.squareToOpens);
+    return board;
   },
 
+  squareToOpens: 0,
   isOver: false,
 
   traverseAdjCoords: (cb) => {
@@ -57,7 +62,6 @@ const mine = {
 
   openSquare: (row, col, board) => {
     if (board[row] && board[row][col]) {
-      board[row][col].open = true;
       if (board[row][col].mine) { return mine.endGame(board); }
       board[row][col].mineCounts = mine.countAdjMines(row, col, board);
     }
@@ -67,82 +71,24 @@ const mine = {
     if (board[row] && board[row][col]) {
       if (board[row][col].mine) { return; }
       board[row][col].open = true;
-      board[row][col].mineCounts = mine.countAdjMines(row, col, board);
+      return board[row][col].mineCounts = mine.countAdjMines(row, col, board);
     }
   },
 
-  openBottoms: (row, col, board) => {
-    let isAdj = false;
-    let visitedLastRow = false;
-
-      for (let j = row; j < board.length; j++) {
-        for (let c = col; c < board.length; c++) {
-          mine.revealSquare(j, c, board);
-          if (mine.isAdjacent(j + 1, c, board)) {
-            isAdj = true;
-            break;
-          }
-        }
-
-        for (let c = col; c > -1; c--) {
-          mine.revealSquare(j, c, board);
-          if (mine.isAdjacent(j + 1, c, board)) {
-            isAdj = true;
-            break;
-          }
-        }
-
-        if (visitedLastRow) { return; }
-        if (isAdj) { visitedLastRow = true; }
-      }
-  },
-
-  openTops: (row, col, board) => {
-    let isAdj = false;
-    let visitedLastRow = false;
-
-    for (let j = row; j > -1; j--) {
-      for (let c = col; c < board.length; c++) {
-        mine.revealSquare(j, c, board);
-        if (mine.isAdjacent(j - 1, c, board)) {
-          isAdj = true;
-          break;
-        }
-      }
-
-      for (let c = col; c > -1; c--) {
-        mine.revealSquare(j, c, board);
-        if (mine.isAdjacent(j - 1, c, board)) {
-          isAdj = true;
-          break;
-        }
-      }
-
-      if (visitedLastRow) { return; }
-      if (isAdj) { visitedLastRow = true; }
-
-    }
-  },
 
   openAdjSquares: (row, col, board) => {
-    if (!board[row][col].mine && board[row][col].mineCounts === 0) {
-      return mine.traverseAdjCoords((current) => {
-        let adjRow = row + current[0];
-        let adjCol = col + current[1];
+      if (row < 0 || row > board.length - 1  || col < 0 || col > board.length - 1) { return; }
+      if (board[row][col].open) { return; }
 
-        mine.openBottoms(adjRow, adjCol, board);
-        mine.openBottoms(adjRow + 1, adjCol, board);
-        mine.openBottoms(adjRow - 1, adjCol, board);
-        mine.openBottoms(adjRow, adjCol + 1, board);
-        mine.openBottoms(adjRow, adjCol - 1, board);
+      mine.revealSquare(row, col, board);
 
-        mine.openTops(adjRow, adjCol, board);
-        mine.openTops(adjRow + 1, adjCol, board);
-        mine.openTops(adjRow - 1, adjCol, board);
-        mine.openTops(adjRow, adjCol + 1, board);
-        mine.openTops(adjRow, adjCol - 1, board);
+      if (board[row][col].mine) { return; }
+      if (board[row][col].mineCounts > 0) { return; }
+
+      mine.traverseAdjCoords((current) => {
+        mine.openAdjSquares(row + current[0], col + current[1], board);
       });
-    }
+
 
   },
 
