@@ -1,4 +1,4 @@
-import updateBoard from './board.js';
+import { changeBoard } from './board.js';
 import mine from './../lib/mine.js';
 
 
@@ -7,7 +7,7 @@ var handleSquareClick = (row, col, board) => {
     if (!mine.isOver) {
       mine.openSquare(row, col, board);
       mine.openAdjSquares(row, col, board);
-      dispatch(updateBoard([...board]));
+      dispatch(changeBoard([...board]));
     }
   };
 
@@ -16,12 +16,10 @@ var handleSquareClick = (row, col, board) => {
 var handleRightClick = (row, col, board) => {
   return (dispatch) => {
     if (!mine.isOver) {
-      console.log('flag at ', row, col);
       mine.toggleFlag(row, col, board);
-      dispatch(updateBoard([...board]));
+      dispatch(changeBoard([...board]));
     }
   };
 };
 
 export { handleSquareClick, handleRightClick }
-// export default handleSquareClick;

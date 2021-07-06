@@ -11,10 +11,6 @@ var Square = ({ board, row, col, handleClick, handleFlag }) => {
   return square.open
     ? <OpenedSquare board={board} row={row} col={col}  />
     : <ClosedSquare board={board} row={row} col={col} handleClick={handleClick} handleFlag={handleFlag} />
-
-  // return square.mine
-  //   ? <td onClick={(e) => handleClick(row, col, board)}> x </td>
-  //   : <td onClick={(e) => handleClick(row, col, board)}></td>;
 };
 
 

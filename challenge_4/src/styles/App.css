@@ -32,3 +32,9 @@ td {
   width: 50px;
   position: relative;
 }
+
+.face {
+  height: 60px;
+  width: 60px;
+  position: relative;
+}

@@ -1,4 +1,4 @@
-var boardReducer = (state = [], action) => {
+var board = (state = [], action) => {
   if (action.type === 'CHANGE_BOARD') {
     return action.board;
   }
@@ -6,4 +6,13 @@ var boardReducer = (state = [], action) => {
   return state;
 };
 
-export default boardReducer;
+var boardSize = (state = 10, action) => {
+  if (action.type === 'CHANGE_BOARD_SIZE') {
+    return action.size;
+  }
+
+  return state;
+};
+
+
+export { board, boardSize };

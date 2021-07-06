@@ -2,11 +2,11 @@ import _ from 'lodash';
 import Row from './Row';
 
 
-var Board = () => {
+var Board = ({ boardSize }) => {
   return (
     <tbody>
-      {_.range(10).map((row) =>
-        <Row row={row} />
+      {_.range(boardSize).map((row) =>
+        <Row row={row} size={boardSize}/>
       )}
     </tbody>
   )

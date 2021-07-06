@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import SquareContainer from './../containers/SquareContainer.js';
 
-var Row = ({ row }) => {
+var Row = ({ row, size }) => {
   return (
     <tr>
-      {_.range(10).map((col) =>
+      {_.range(size).map((col) =>
         <SquareContainer row={row} col={col} />
       )}
     </tr>

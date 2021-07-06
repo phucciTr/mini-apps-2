@@ -11,6 +11,7 @@ var ClosedSquare = ({ board, row, col, handleClick, handleFlag }) => {
     ? <td onClick={(e) => handleClick(row, col, board)}  onContextMenu={(e) => {e.preventDefault(); handleFlag(row, col, board)}}> {flag} </td>
     : <td onClick={(e) => handleClick(row, col, board)}  onContextMenu={(e) => {e.preventDefault(); handleFlag(row, col, board)}}> </td>;
 
+  /** Shows mines */
   // return square.mine
   //   ? <td onClick={(e) => handleClick(row, col, board)} onContextMenu={(e) => {e.preventDefault(); handleFlag(row, col, board)}}> x </td>
   //   : square.flag

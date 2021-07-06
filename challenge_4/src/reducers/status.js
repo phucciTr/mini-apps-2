@@ -1,4 +1,4 @@
-var statusReducer = (state = false, action) => {
+var winStatus = (state = false, action) => {
   if (action.type === 'CHANGE_WIN_STATUS') {
     return action.status;
   }
@@ -6,4 +6,22 @@ var statusReducer = (state = false, action) => {
   return state;
 };
 
-export default statusReducer;
+var level = (state = 1, action) => {
+  if (action.type === 'CHANGE_LEVEL') {
+    return action.level;
+  }
+
+  return state;
+}
+
+var lost = (state = false, action) => {
+  if (action.type === 'CHANGE_LOST_STATUS') {
+    return action.lost;
+  }
+
+  return state;
+}
+
+
+export { winStatus, level, lost };
+

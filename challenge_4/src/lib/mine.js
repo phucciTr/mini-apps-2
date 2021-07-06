@@ -1,9 +1,14 @@
 import _ from 'lodash';
-import changeStatus from './../actions/status.js';
+import { changeWinStatus, changeLevel } from './../actions/app.js';
+
+import { changeBoard, changeBoardSize } from './../actions/board.js';
+import { changeLostStatus } from './../actions/app.js';
+
 import store from './../store/store.js';
 
-let totalMines = 10;
+let totalMines;
 let mineCounts = 0;
+let levels = [10, 15, 20, 35, 40, 45, 50];
 
 const generateSquare = (row) => {
   let square = { mine: false, open: false, flag: false, mineCounts: 0 };
@@ -24,19 +29,31 @@ const generateSquare = (row) => {
 }
 
 const mine = {
-  init: () => {
+  init: (currentLevel) => {
     mineCounts = 0;
+    totalMines = levels[currentLevel - 1];
+    console.log("totalMines ", totalMines);
 
     let board = _.range(10).map((row) =>
       _.range(10).map((col) => generateSquare(row)));
 
+    store.dispatch(changeBoardSize(10));
+    store.dispatch(changeLevel(currentLevel))
 
     mine.squareToOpens = 100 - mineCounts;
     console.log('mineCounts = ', mineCounts);
     console.log('mine.squareToOpens = ', mine.squareToOpens);
+
+    if (mine.level > 1) {
+      mine.isOver = false;
+      store.dispatch(changeLostStatus(false));
+      store.dispatch(changeWinStatus(false))
+      return store.dispatch(changeBoard(board));
+    }
     return board;
   },
 
+  level: 1,
   squareToOpens: 0,
   isOver: false,
 
@@ -55,6 +72,7 @@ const mine = {
 
   endGame: (board) => {
     mine.isOver = true;
+    store.dispatch(changeLostStatus(true));
 
     board.forEach((row, r) =>
       row.forEach((col, c) =>
@@ -93,7 +111,7 @@ const mine = {
       mine.revealSquare(row, col, board);
 
       if (mine.squareToOpens === 0) {
-        store.dispatch(changeStatus(true));
+        store.dispatch(changeWinStatus(true));
         return mine.isOver = true;
       }
 
@@ -121,11 +139,6 @@ const mine = {
 
     return mineCounts;
   },
-
-  isAdjacent: (row, col, board) => {
-    let mineCounts = mine.countAdjMines(row, col, board);
-    return mineCounts > 0;
-  }
 };
 
 

@@ -3,4 +3,9 @@ var changeBoard = (board) => ({
   'board': board
 });
 
-export default changeBoard;
+var changeBoardSize = (size) => ({
+  'type': 'CHANGE_BOARD_SIZE',
+  'size': size
+});
+
+export { changeBoard, changeBoardSize }
